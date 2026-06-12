@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% set is_edit = expense is not none %}
+{% block title %}{{ "Edycja wydatku" if is_edit else "Nowy wydatek" }}{% endblock %}
+
+{% block content %}
+<section class="section-heading">
+    <div>
+        <p class="eyebrow">{{ "Aktualizacja danych" if is_edit else "Dodawanie rekordu" }}</p>
+        <h1>{{ "Edycja wydatku" if is_edit else "Nowy wydatek" }}</h1>
+    </div>
+</section>
+
+{% if errors %}
+    <div class="error-list">
+        {% for error in errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<form class="expense-form" method="post">
+    <label>
+        Nazwa
+        <input name="title" required maxlength="100" value="{{ request.form.get('title', expense.title if expense else '') }}">
+    </label>
+
+    <label>
+        Kwota
+        <input name="amount" type="number" min="0.01" step="0.01" required value="{{ request.form.get('amount', expense.amount if expense else '') }}">
+    </label>
+
+    <label>
+        Data
+        <input name="spent_on" type="date" required value="{{ request.form.get('spent_on', expense.spent_on.strftime('%Y-%m-%d') if expense else '') }}">
+    </label>
+
+    <label>
+        Kategoria
+        <select name="category_id" required>
+            <option value="">Wybierz</option>
+            {% for category in categories %}
+                {% set selected_category = request.form.get('category_id', expense.category_id|string if expense else '') %}
+                <option value="{{ category.id }}" {% if selected_category == category.id|string %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </label>
+
+    <label>
+        Metoda platnosci
+        <select name="payment_method_id" required>
+            <option value="">Wybierz</option>
+            {% for method in payment_methods %}
+                {% set selected_method = request.form.get('payment_method_id', expense.payment_method_id|string if expense else '') %}
+                <option value="{{ method.id }}" {% if selected_method == method.id|string %}selected{% endif %}>{{ method.name }}</option>
+            {% endfor %}
+        </select>
+    </label>
+
+    <label class="full">
+        Notatka
+        <textarea name="note" maxlength="250" rows="4">{{ request.form.get('note', expense.note if expense and expense.note else '') }}</textarea>
+    </label>
+
+    <div class="form-actions">
+        <button type="submit">{{ "Zapisz zmiany" if is_edit else "Dodaj wydatek" }}</button>
+        <a class="ghost" href="{{ url_for('main.index') }}">Anuluj</a>
+    </div>
+</form>
+{% endblock %}
