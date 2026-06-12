@@ -188,6 +188,13 @@ cython_debug/
 #  you could uncomment the following to ignore the entire vscode folder
 # .vscode/
 
+# .NET build output
+bin/
+obj/
+*.user
+*.suo
+*.db
+
 # Ruff stuff:
 .ruff_cache/
 

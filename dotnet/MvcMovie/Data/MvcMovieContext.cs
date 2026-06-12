@@ -15,5 +15,8 @@ namespace MvcMovie.Data
         }
 
         public DbSet<MvcMovie.Models.Movie> Movie { get; set; } = default!;
+        public DbSet<Category> Categories { get; set; } = default!;
+        public DbSet<PaymentMethod> PaymentMethods { get; set; } = default!;
+        public DbSet<Expense> Expenses { get; set; } = default!;
     }
 }

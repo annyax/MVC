@@ -1,0 +1,21 @@
+@model MvcMovie.Models.Expense
+
+@{
+    ViewData["Title"] = "Edycja wydatku";
+}
+
+<h1>Edycja wydatku</h1>
+
+<form asp-action="Edit" class="row g-3 border rounded bg-white p-3">
+    <input type="hidden" asp-for="Id" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <partial name="_ExpenseForm" model="Model" />
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+        <a class="btn btn-outline-secondary" asp-action="Index">Anuluj</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
