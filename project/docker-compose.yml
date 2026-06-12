@@ -2,6 +2,4 @@ services:
   web:
     build: .
     ports:
-      - "5000:5000"
-    volumes:
-      - ./data:/app/data
+      - "8001:8080"

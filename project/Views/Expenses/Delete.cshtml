@@ -1,0 +1,22 @@
+@model MvcMovie.Models.Expense
+
+@{
+    ViewData["Title"] = "Usun wydatek";
+}
+
+<div class="border rounded bg-white p-4">
+    <h1>Usun wydatek</h1>
+    <p>Czy na pewno chcesz usunac wydatek <strong>@Model.Title</strong>?</p>
+    <dl class="row">
+        <dt class="col-sm-3">Kwota</dt>
+        <dd class="col-sm-9">@Model.Amount.ToString("0.00") zl</dd>
+        <dt class="col-sm-3">Kategoria</dt>
+        <dd class="col-sm-9">@Model.Category?.Name</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Usun</button>
+        <a class="btn btn-outline-secondary" asp-action="Index">Anuluj</a>
+    </form>
+</div>

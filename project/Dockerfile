@@ -1,12 +1,12 @@
-FROM python:3.12-slim
-
-WORKDIR /app
-
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+COPY MvcMovie.csproj .
+RUN dotnet restore
 COPY . .
+RUN dotnet publish -c Release -o /app/publish
 
-EXPOSE 5000
-
-CMD ["python", "manage.py", "runserver", "0.0.0.0:5000"]
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
+WORKDIR /app
+COPY --from=build /app/publish .
+EXPOSE 8080
+ENTRYPOINT ["dotnet", "MvcMovie.dll"]
