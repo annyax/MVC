@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/anyaplaksina/MVC/dotnet/MvcMovie/MvcMovie.csproj": {}
+    "/Users/anyaplaksina/Desktop/programming/MMM/dotnet/MvcMovie/MvcMovie.csproj": {}
   },
   "projects": {
-    "/Users/anyaplaksina/MVC/dotnet/MvcMovie/MvcMovie.csproj": {
+    "/Users/anyaplaksina/Desktop/programming/MMM/dotnet/MvcMovie/MvcMovie.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/anyaplaksina/MVC/dotnet/MvcMovie/MvcMovie.csproj",
+        "projectUniqueName": "/Users/anyaplaksina/Desktop/programming/MMM/dotnet/MvcMovie/MvcMovie.csproj",
         "projectName": "MvcMovie",
-        "projectPath": "/Users/anyaplaksina/MVC/dotnet/MvcMovie/MvcMovie.csproj",
+        "projectPath": "/Users/anyaplaksina/Desktop/programming/MMM/dotnet/MvcMovie/MvcMovie.csproj",
         "packagesPath": "/Users/anyaplaksina/.nuget/packages/",
-        "outputPath": "/Users/anyaplaksina/MVC/dotnet/MvcMovie/obj/",
+        "outputPath": "/Users/anyaplaksina/Desktop/programming/MMM/dotnet/MvcMovie/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/anyaplaksina/.nuget/NuGet/NuGet.Config"
@@ -43,6 +43,36 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[10.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[10.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[10.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.5, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[10.0.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
