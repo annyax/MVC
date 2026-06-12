@@ -4,7 +4,7 @@
 
 1. [Opis projektu](#opis-projektu)
 2. [Funkcjonalnosci](#funkcjonalnosci)
-3. [Struktura MVC](#struktura-mvc)
+3. [Struktura MVC/MVT](#struktura-mvcmvt)
 4. [Technologie i biblioteki](#technologie-i-biblioteki)
 5. [Uruchomienie lokalne](#uruchomienie-lokalne)
 6. [Uruchomienie w Dockerze](#uruchomienie-w-dockerze)
@@ -13,7 +13,7 @@
 
 ## Opis projektu
 
-Projekt realizuje temat: **System monitorowania wydatkow domowych**. Aplikacja pozwala prowadzic liste domowych wydatkow, przypisywac je do kategorii i metod platnosci oraz filtrowac dane na liscie.
+Projekt realizuje temat: **System monitorowania wydatkow domowych**. Aplikacja zostala napisana w Django i pozwala prowadzic liste domowych wydatkow, przypisywac je do kategorii i metod platnosci oraz filtrowac dane na liscie.
 
 ## Funkcjonalnosci
 
@@ -24,37 +24,37 @@ Projekt realizuje temat: **System monitorowania wydatkow domowych**. Aplikacja p
 - widok szczegolow pojedynczego wydatku,
 - wyszukiwanie po nazwie wydatku,
 - filtrowanie po kategorii i metodzie platnosci,
-- walidacja po stronie klienta przez atrybuty HTML (`required`, `min`, `maxlength`),
-- walidacja po stronie serwera w kontrolerze Flask,
-- automatyczne utworzenie bazy SQLite i danych startowych,
-- przykladowe testy jednostkowe,
+- walidacja po stronie klienta przez atrybuty HTML,
+- walidacja po stronie serwera przez Django ModelForm i walidatory modelu,
+- migracje Django tworzace baze SQLite i dane startowe,
+- przykladowe testy jednostkowe Django,
 - konfiguracja Docker.
 
-## Struktura MVC
+## Struktura MVC/MVT
 
-- **Model**: `app/models.py`
+- **Model**: `expenses/models.py`
   - `Expense`: glowny model wydatku (`title`, `amount`, `spent_on`, `note`),
   - `Category`: dodatkowy model kategorii wydatku,
   - `PaymentMethod`: dodatkowy model metody platnosci.
 - **Relacje**:
   - jeden `Category` ma wiele `Expense`,
   - jeden `PaymentMethod` ma wiele `Expense`.
-- **Kontroler**: `app/controllers.py`
+- **Kontroler / View w Django**: `expenses/views.py`
   - obsluga zadan HTTP,
-  - walidacja danych,
+  - obsluga formularzy,
   - zapis, edycja, usuwanie i filtrowanie rekordow.
-- **Widok**: `app/templates/`
+- **Widok / Template**: `expenses/templates/expenses/`
   - lista wydatkow,
   - formularz dodawania i edycji,
   - widok szczegolow pojedynczego obiektu.
 
+Django formalnie korzysta z nazwy MVT (Model-View-Template), ale struktura odpowiada wymaganiom MVC: model jest w `models.py`, logika kontrolera w `views.py`, a warstwa prezentacji w szablonach HTML.
+
 ## Technologie i biblioteki
 
 - Python 3.12,
-- Flask,
-- Flask-SQLAlchemy,
+- Django,
 - SQLite,
-- pytest,
 - Docker.
 
 ## Uruchomienie lokalne
@@ -81,13 +81,14 @@ pip install -r requirements.txt
 4. Uruchom aplikacje:
 
 ```bash
-flask --app zad run
+python manage.py migrate
+python manage.py runserver
 ```
 
 5. Otworz w przegladarce:
 
 ```text
-http://127.0.0.1:5000
+http://127.0.0.1:8000
 ```
 
 ## Uruchomienie w Dockerze
@@ -107,7 +108,7 @@ http://127.0.0.1:5000
 Po zainstalowaniu zaleznosci uruchom:
 
 ```bash
-pytest
+python manage.py test
 ```
 
 ## Przykladowe dane
@@ -118,4 +119,4 @@ Przykladowe dane znajduja sie w pliku:
 data/sample_expenses.csv
 ```
 
-Dodatkowo aplikacja przy pierwszym uruchomieniu sama tworzy baze `data/expenses.db` i dodaje kilka rekordow startowych.
+Dodatkowo migracje Django tworza baze `db.sqlite3` i dodaja kilka rekordow startowych.

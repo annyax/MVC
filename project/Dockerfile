@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["flask", "--app", "zad", "run", "--host", "0.0.0.0"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:5000"]

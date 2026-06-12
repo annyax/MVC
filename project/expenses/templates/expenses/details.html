@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "expenses/base.html" %}
 
 {% block title %}Szczegoly wydatku{% endblock %}
 
@@ -9,7 +9,7 @@
             <p class="eyebrow">Widok pojedynczego obiektu</p>
             <h1>{{ expense.title }}</h1>
         </div>
-        <strong class="big-amount">{{ "%.2f"|format(expense.amount) }} zl</strong>
+        <strong class="big-amount">{{ expense.amount|floatformat:2 }} zl</strong>
     </div>
 
     <dl>
@@ -23,17 +23,17 @@
         </div>
         <div>
             <dt>Data</dt>
-            <dd>{{ expense.spent_on.strftime("%Y-%m-%d") }}</dd>
+            <dd>{{ expense.spent_on|date:"Y-m-d" }}</dd>
         </div>
         <div>
             <dt>Notatka</dt>
-            <dd>{{ expense.note or "Brak notatki" }}</dd>
+            <dd>{{ expense.note|default:"Brak notatki" }}</dd>
         </div>
     </dl>
 
     <div class="form-actions">
-        <a class="button" href="{{ url_for('main.edit_expense', expense_id=expense.id) }}">Edytuj</a>
-        <a class="ghost" href="{{ url_for('main.index') }}">Powrot</a>
+        <a class="button" href="{% url 'expense_update' expense.pk %}">Edytuj</a>
+        <a class="ghost" href="{% url 'expense_list' %}">Powrot</a>
     </div>
 </section>
 {% endblock %}

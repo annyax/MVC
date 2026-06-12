@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "expenses/base.html" %}
 
 {% block title %}Lista wydatkow{% endblock %}
 
@@ -10,21 +10,21 @@
     </div>
     <div class="summary">
         <span>Suma</span>
-        <strong>{{ "%.2f"|format(total) }} zl</strong>
+        <strong>{{ total|floatformat:2 }} zl</strong>
     </div>
 </section>
 
 <form class="filters" method="get">
     <label>
         Szukaj
-        <input type="search" name="search" value="{{ filters.get('search', '') }}" placeholder="np. zakupy">
+        <input type="search" name="search" value="{{ filters.search }}" placeholder="np. zakupy">
     </label>
     <label>
         Kategoria
         <select name="category_id">
             <option value="">Wszystkie</option>
             {% for category in categories %}
-                <option value="{{ category.id }}" {% if filters.get('category_id') == category.id|string %}selected{% endif %}>{{ category.name }}</option>
+                <option value="{{ category.id }}" {% if filters.category_id == category.id|stringformat:"s" %}selected{% endif %}>{{ category.name }}</option>
             {% endfor %}
         </select>
     </label>
@@ -33,12 +33,12 @@
         <select name="payment_method_id">
             <option value="">Wszystkie</option>
             {% for method in payment_methods %}
-                <option value="{{ method.id }}" {% if filters.get('payment_method_id') == method.id|string %}selected{% endif %}>{{ method.name }}</option>
+                <option value="{{ method.id }}" {% if filters.payment_method_id == method.id|stringformat:"s" %}selected{% endif %}>{{ method.name }}</option>
             {% endfor %}
         </select>
     </label>
     <button type="submit">Filtruj</button>
-    <a class="ghost" href="{{ url_for('main.index') }}">Wyczysc</a>
+    <a class="ghost" href="{% url 'expense_list' %}">Wyczysc</a>
 </form>
 
 <section class="table-wrap">
@@ -56,19 +56,20 @@
         <tbody>
             {% for expense in expenses %}
                 <tr>
-                    <td><a href="{{ url_for('main.details', expense_id=expense.id) }}">{{ expense.title }}</a></td>
+                    <td><a href="{% url 'expense_detail' expense.pk %}">{{ expense.title }}</a></td>
                     <td><span class="badge" style="--badge-color: {{ expense.category.color }}">{{ expense.category.name }}</span></td>
                     <td>{{ expense.payment_method.name }}</td>
-                    <td>{{ expense.spent_on.strftime("%Y-%m-%d") }}</td>
-                    <td class="amount">{{ "%.2f"|format(expense.amount) }} zl</td>
+                    <td>{{ expense.spent_on|date:"Y-m-d" }}</td>
+                    <td class="amount">{{ expense.amount|floatformat:2 }} zl</td>
                     <td class="actions">
-                        <a href="{{ url_for('main.edit_expense', expense_id=expense.id) }}">Edytuj</a>
-                        <form method="post" action="{{ url_for('main.delete_expense', expense_id=expense.id) }}">
+                        <a href="{% url 'expense_update' expense.pk %}">Edytuj</a>
+                        <form method="post" action="{% url 'expense_delete' expense.pk %}">
+                            {% csrf_token %}
                             <button type="submit" class="link-button">Usun</button>
                         </form>
                     </td>
                 </tr>
-            {% else %}
+            {% empty %}
                 <tr>
                     <td colspan="6" class="empty">Brak wydatkow dla podanych filtrow.</td>
                 </tr>
