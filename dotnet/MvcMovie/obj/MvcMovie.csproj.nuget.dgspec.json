@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/anyaplaksina/Desktop/programming/MMM/dotnet/MvcMovie/MvcMovie.csproj": {}
+    "/Users/anyaplaksina/Desktop/programming/MVC/dotnet/MvcMovie/MvcMovie.csproj": {}
   },
   "projects": {
-    "/Users/anyaplaksina/Desktop/programming/MMM/dotnet/MvcMovie/MvcMovie.csproj": {
+    "/Users/anyaplaksina/Desktop/programming/MVC/dotnet/MvcMovie/MvcMovie.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/anyaplaksina/Desktop/programming/MMM/dotnet/MvcMovie/MvcMovie.csproj",
+        "projectUniqueName": "/Users/anyaplaksina/Desktop/programming/MVC/dotnet/MvcMovie/MvcMovie.csproj",
         "projectName": "MvcMovie",
-        "projectPath": "/Users/anyaplaksina/Desktop/programming/MMM/dotnet/MvcMovie/MvcMovie.csproj",
+        "projectPath": "/Users/anyaplaksina/Desktop/programming/MVC/dotnet/MvcMovie/MvcMovie.csproj",
         "packagesPath": "/Users/anyaplaksina/.nuget/packages/",
-        "outputPath": "/Users/anyaplaksina/Desktop/programming/MMM/dotnet/MvcMovie/obj/",
+        "outputPath": "/Users/anyaplaksina/Desktop/programming/MVC/dotnet/MvcMovie/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/anyaplaksina/.nuget/NuGet/NuGet.Config"
